@@ -45,6 +45,11 @@
       <item>let</item>
       <item>var</item>
     </list>
+    <list name="magic">
+      <item>@MainLoop</item>
+      <item>@Event</item>
+      <item>@Initialize</item>
+    </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces />
@@ -102,17 +107,11 @@
 
      <context attribute="Error" lineEndContext="#pop" name="AfterHash">
         <RegExpr attribute="Preprocessor" context="Include" String="&pphash;(?:include|include_next)" insensitive="true" firstNonSpace="true" />
-
-        <!-- define, elif, else, endif, error, if, ifdef, ifndef, line, pragma, undef, warning -->
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;if(?:def|ndef)?(?=\s+\S)" insensitive="true" beginRegion="PP" firstNonSpace="true" />
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;endif" insensitive="true" endRegion="PP" firstNonSpace="true" />
-        <RegExpr attribute="Preprocessor" context="Define" String="&pphash;define.*((?=\\))" insensitive="true" firstNonSpace="true" />
-
-        <!-- folding for apple style #pragma mark - label -->
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;pragma\s+mark\s+-\s*$" insensitive="true" firstNonSpace="true" endRegion="pragma_mark" />
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;pragma\s+mark" insensitive="true" firstNonSpace="true" endRegion="pragma_mark" beginRegion="pragma_mark" />
-
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;(?:el(?:se|if)|define|undef|line|error|warning|pragma)|&ispphash;\s+[0-9]+" insensitive="true" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;Title" insensitive="true" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;TouhouDanmakufu" insensitive="true" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;Text" insensitive="true" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;BGM" insensitive="true" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;ScriptVersion" insensitive="true" endRegion="PP" firstNonSpace="true" />
       </context>
 
       <context attribute="Preprocessor" lineEndContext="#pop" name="Include">
@@ -181,6 +180,11 @@
       <context name="NumericSuffixError" attribute="Error" lineEndContext="#pop#pop#pop" fallthrough="true" fallthroughContext="#pop#pop#pop">
         <RegExpr attribute="Error" context="#pop#pop#pop" String="\.[_0-9A-Za-z]*|[_0-9A-Za-z]+" />
       </context>
+
+      <context name="MagicConstant" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr attribute="Normal Text" context="#pop" String="EV_[A-Z_]+"/>
+        <keyword attribute="Normal Text" context="#stay" String="magic"/>
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal" spellChecking="false"/>
@@ -202,6 +206,7 @@
       <itemData name="Prep. Lib"    defStyleNum="dsImport" spellChecking="false"/>
       <itemData name="Region Marker" defStyleNum="dsRegionMarker" spellChecking="false"/>
       <itemData name="Error"        defStyleNum="dsError" spellChecking="false"/>
+      <itemData name="MagicConstant" defStyleNum="dsBuiltIn" spellChecking="false"/>
     </itemDatas>
   </highlighting>
   <general>
