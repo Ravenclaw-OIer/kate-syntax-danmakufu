@@ -112,6 +112,7 @@
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;Text" insensitive="true" endRegion="PP" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;BGM" insensitive="true" endRegion="PP" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;ScriptVersion" insensitive="true" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="&pphash;System" insensitive="true" endRegion="PP" firstNonSpace="true" />
       </context>
 
       <context attribute="Preprocessor" lineEndContext="#pop" name="Include">
